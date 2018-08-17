@@ -1,7 +1,13 @@
 <div class="board">
   <h1>Game Start</h1>
   <h1 *ngIf="blankCount > 0">Blanks remaining {{blankCount}}</h1>
-  <div class="cards" *ngIf="blankCount > 0">
-    <div *ngFor="let card of currentCards" (click)="getCard(card)" class="card">{{card}}</div>
+  <div *ngIf="blankCount === 0">
+    <span class="madlibs" *ngFor="let s of story">{{s}}</span>
+    <br /><button (click)="replay()">Play again?</button>
+  </div>
+  <div>
+    <div class="cards" *ngIf="blankCount > 0">
+      <div *ngFor="let card of currentCards" (click)="getCard(card)" class="card">{{card}}</div>
+    </div>
   </div>
 </div>

@@ -14,8 +14,9 @@ export class BoardComponent implements OnInit {
   currentCards = [];
 
   selectedCards = [];   // The hand if you will
-  blankCount: number;   // How many blanks will be in the story
-  story: string;        // The assembled story
+  blankCount = 0;   // How many blanks will be in the story
+  counter = 0;  // Helps properly assemble the story
+  story = [];        // The assembled story
 
   /**
    * Draw a full hand to start off wtih
@@ -26,7 +27,7 @@ export class BoardComponent implements OnInit {
       this.currentCards.push(whitecards[this.randomNum(len)]);
     }
   }
-  
+
   /**
    * Draw one card
    */
@@ -34,7 +35,7 @@ export class BoardComponent implements OnInit {
     let len = whitecards.length;
     this.currentCards.push(whitecards[this.randomNum(len)]);
   }
-  
+
   /**
    * Return a random number
    * @param n number
@@ -42,7 +43,7 @@ export class BoardComponent implements OnInit {
   randomNum(n: number) {
     return (Math.floor(Math.random() * n));
   }
-  
+
   /**
    * Get the card selected to put into the blank bank, while removing that one in the hand
    * @param card string
@@ -50,11 +51,14 @@ export class BoardComponent implements OnInit {
   getCard(card: string) {
     let index = this.currentCards.indexOf(card);
     if (index > -1) {
+      this.story.push(this.currentStory[this.counter]);
+      this.story.push(this.currentCards[index]);
       this.currentCards.splice(index, 1);
     }
     this.drawCard();
-    this.selectedCards.push(card);
+    // this.selectedCards.push(card);
     this.blankCount--;
+    this.counter++;
   }
 
   /**
@@ -68,7 +72,15 @@ export class BoardComponent implements OnInit {
    * Unleash the hell that was generated.
    */
   assembleStory() {
+    let s = this.story;
+    for (var i = 0; i < this.currentStory.length; i++) {
+      this.story += this.currentStory[i];
+    }
+    return s;
+  }
 
+  replay() {
+    window.location.reload();
   }
 
   constructor() {

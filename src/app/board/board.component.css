@@ -36,3 +36,7 @@
 .card:hover, .card:active {
     bottom: 2rem;
 }
+
+.madlibs:nth-child(2n) {
+    text-decoration: underline;
+}

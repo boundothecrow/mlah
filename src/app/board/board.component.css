@@ -47,3 +47,9 @@
     text-transform: uppercase;
     font-weight: 700;
 }
+
+@media screen and (max-width: 640px) {
+    .card {
+        bottom: -2rem;
+    }
+}

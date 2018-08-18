@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { whitecards } from '../whitecards';
 import { madlibs } from '../madlibs';
+import { fadeInAnimation } from '../animations';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+  styleUrls: ['./board.component.css'],
+  animations: [ fadeInAnimation ],
+  host: { '[@fadeInAnimation]': '' }
 })
 
 export class BoardComponent implements OnInit {
@@ -19,7 +22,7 @@ export class BoardComponent implements OnInit {
   story = [];        // The assembled story
 
   /**
-   * Draw a full hand to start off wtih
+   * Draw a full hand
    */
   drawCards() {
     let len = whitecards.length
@@ -51,14 +54,29 @@ export class BoardComponent implements OnInit {
   getCard(card: string) {
     let index = this.currentCards.indexOf(card);
     if (index > -1) {
-      this.story.push(this.currentStory[this.counter]);
-      this.story.push(this.currentCards[index]);
-      this.currentCards.splice(index, 1);
+      this.story.push(this.currentStory[this.counter]); // At part of the story
+      this.story.push(this.currentCards[index]);  // Append the card within the blanks in the story
+      this.currentCards.splice(index, 1); // Remove the card selected from the hand
     }
-    this.drawCard();
-    // this.selectedCards.push(card);
+    this.drawCard();  // Draw a new card
+    // Increment and deincrement accordingly
     this.blankCount--;
     this.counter++;
+    // There's always that one last part of the array that never gets put into the completed story.
+    // Even if it's just a punctuation, add it anways
+    if (this.counter === (this.currentStory.length - 1)) {
+      this.story.push(this.currentStory[this.counter]);
+    }
+  }
+
+  /**
+   * There's this stubborn issue where if there is a sentence after the last blank, then it will do nothing.
+   * This is meant to quick-fix the issue for the time being
+   */
+  addOneMore() {
+    console.log("HI, I'M MISTER MEESEEKS, LOOK AT ME");
+    this.counter++;
+    this.story.push(this.currentStory[this.counter]);
   }
 
   /**
@@ -66,17 +84,6 @@ export class BoardComponent implements OnInit {
    */
   storyWordCount() {
     this.blankCount = (this.currentStory.length - 1);
-  }
-
-  /**
-   * Unleash the hell that was generated.
-   */
-  assembleStory() {
-    let s = this.story;
-    for (var i = 0; i < this.currentStory.length; i++) {
-      this.story += this.currentStory[i];
-    }
-    return s;
   }
 
   replay() {

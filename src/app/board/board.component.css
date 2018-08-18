@@ -37,6 +37,13 @@
     bottom: 2rem;
 }
 
+.output {
+    padding: 0 1rem;
+}
+
+/* Since a blank is on every other child, use that */
 .madlibs:nth-child(2n) {
     text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: 700;
 }

@@ -1,8 +1,0 @@
-.app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: column;
-    text-align: center;
-    height: 100%;
-}

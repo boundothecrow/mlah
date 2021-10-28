@@ -1,4 +1,5 @@
 import './scss/App.scss';
+import { Route, NavLink, HashRouter } from 'react-router-dom';
 
 function App() {
   return (

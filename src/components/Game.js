@@ -7,16 +7,35 @@ class Game extends Component {
         super(props);
         this.state = {
             cards: Cards,
-            cardsShuffled: ''
+            libs: Libs,
+            cardsShuffled: '',
+            currentLib: ''
         }
     }
 
+    /**
+     * Shuffles the whole array
+     * @returns Array
+     */
     shuffle() {
         return this.state.cards.sort(() => Math.random() - 0.5);
     }
 
+    /**
+     * Picks a random lib
+     * @returns String
+     */
+    pickLib() {
+        let len = this.state.libs.length;
+        return this.state.libs[Math.floor(Math.random() * len)];
+    }
+
+    // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
-        this.setState({cardsShuffled: this.shuffle()});
+        this.setState({
+            cardsShuffled: this.shuffle(),
+            currentLib: this.pickLib()
+        });
     }
 
     render() {

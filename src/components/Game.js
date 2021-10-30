@@ -3,12 +3,12 @@ import Cards from '../assets/cards.json';
 import Libs from '../assets/libs.json';
 
 class Game extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             cards: Cards,
             libs: Libs,
-            cardsShuffled: '',
+            hand: [],
             currentLib: ''
         }
     }
@@ -18,7 +18,8 @@ class Game extends Component {
      * @returns Array
      */
     shuffle() {
-        return this.state.cards.sort(() => Math.random() - 0.5);
+        let shuffled = this.state.cards.sort(() => Math.random() - 0.5);
+        return shuffled;
     }
 
     /**
@@ -33,7 +34,7 @@ class Game extends Component {
     // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
         this.setState({
-            cardsShuffled: this.shuffle(),
+            hand: this.shuffle(),
             currentLib: this.pickLib()
         });
     }
@@ -41,6 +42,7 @@ class Game extends Component {
     render() {
         return (
             <div className="Game">
+                
             </div>
         );
     }

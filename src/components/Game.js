@@ -6,20 +6,28 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
+            test: "WHY",
             cards: Cards,
             libs: Libs,
-            hand: [],
-            currentLib: ''
+            cardsShuffled: [],
+            currentLib: '',
+            hand: []
         }
     }
 
     /**
-     * Shuffles the whole array
+     * Shuffle cards, pick 14
      * @returns Array
      */
-    shuffle() {
+    newHand() {
         let shuffled = this.state.cards.sort(() => Math.random() - 0.5);
-        return shuffled;
+        let newHand = this.state.hand;
+        for (let i = 0; i < 14; i++) {
+            newHand.push(shuffled[i]);
+        }
+        this.setState({
+            hand: newHand.slice()
+        })
     }
 
     /**
@@ -33,16 +41,14 @@ class Game extends Component {
 
     // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
-        this.setState({
-            hand: this.shuffle(),
-            currentLib: this.pickLib()
-        });
+        this.newHand();
     }
+
 
     render() {
         return (
             <div className="Game">
-                
+                {console.log(this.state.hand[1])}
             </div>
         );
     }

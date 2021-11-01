@@ -6,7 +6,6 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
-            test: "WHY",
             cards: Cards,
             libs: Libs,
             cardsShuffled: [],
@@ -39,6 +38,12 @@ class Game extends Component {
         return this.state.libs[Math.floor(Math.random() * len)];
     }
 
+    removeCard(id) {
+        this.state.hand.splice(id, 1);
+        console.log(this.state.hand);
+
+    }
+
     // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
         this.newHand();
@@ -48,7 +53,14 @@ class Game extends Component {
     render() {
         return (
             <div className="Game">
-                {console.log(this.state.hand[1])}
+                <div>
+                    <h1>Noun</h1>
+                </div>
+                <div className="card-board">
+                    {this.state.hand.map((e, i) => {
+                        return <div className="card" id={i} key={i} onClick={() => this.removeCard(i)}>{e}</div>
+                    })}
+                </div>
             </div>
         );
     }

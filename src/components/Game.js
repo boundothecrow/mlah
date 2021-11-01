@@ -8,21 +8,36 @@ class Game extends Component {
         this.state = {
             cards: Cards,
             libs: Libs,
-            cardsShuffled: [],
             currentLib: '',
-            hand: []
+            deck: [],
+            hand: [],
+            deckIndex: 14,
         }
     }
 
     /**
-     * Shuffle cards, pick 14
+     * Shuffle entire collection of cards, then only pick 50 of them
+     * to be added to the deck
+     */
+    shuffle() {
+        let shuffled = this.state.cards.sort(() => Math.random() - 0.5);
+        let newDeck = this.state.deck;
+        for (let i = 0; i < 50; i++) {
+            newDeck.push(shuffled[i]);
+        }
+        this.setState({
+            deck: newDeck.slice()
+        })
+    }
+
+    /**
+     * Pick 14 cards
      * @returns Array
      */
     newHand() {
-        let shuffled = this.state.cards.sort(() => Math.random() - 0.5);
         let newHand = this.state.hand;
         for (let i = 0; i < 14; i++) {
-            newHand.push(shuffled[i]);
+            newHand.push(this.state.deck[i]);
         }
         this.setState({
             hand: newHand.slice()
@@ -39,13 +54,16 @@ class Game extends Component {
     }
 
     removeCard(id) {
-        this.state.hand.splice(id, 1);
-        console.log(this.state.hand);
+        let deckIndex = this.state.deckIndex;
+        let currDeck = this.state.deck;
 
+        this.state.hand.splice(id, 1, currDeck[deckIndex]);
+        this.setState({ deckIndex: deckIndex + 1 })
     }
 
     // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
+        this.shuffle();
         this.newHand();
     }
 

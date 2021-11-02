@@ -12,6 +12,7 @@ class Game extends Component {
             deck: [],
             hand: [],
             deckIndex: 14,
+            placedCards: [],
         }
     }
 
@@ -53,12 +54,22 @@ class Game extends Component {
         return this.state.libs[Math.floor(Math.random() * len)];
     }
 
-    removeCard(id) {
+    placeCard(id) {
         let deckIndex = this.state.deckIndex;
         let currDeck = this.state.deck;
+        let currCard = this.state.hand[id];
+        let plCNum = this.state.placedCards.length;
 
-        this.state.hand.splice(id, 1, currDeck[deckIndex]);
-        this.setState({ deckIndex: deckIndex + 1 })
+        if (plCNum < 3) {
+            this.state.hand.splice(id, 1, currDeck[deckIndex]);
+            this.setState({
+                deckIndex: deckIndex + 1,
+                placedCards: this.state.placedCards.concat(currCard)
+            });
+        } else {
+            console.log("Limit reached");
+        }
+
     }
 
     // Once the component mounts, automatically shuffle the cards
@@ -76,7 +87,7 @@ class Game extends Component {
                 </div>
                 <div className="card-board">
                     {this.state.hand.map((e, i) => {
-                        return <div className="card" id={i} key={i} onClick={() => this.removeCard(i)}>{e}</div>
+                        return <div className="card" id={i} key={i} onClick={() => this.placeCard(i)}>{e}</div>
                     })}
                 </div>
             </div>

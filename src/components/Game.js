@@ -1,3 +1,6 @@
+/// TODO: Add RegEx expression for capturing between underscores for libbing (RegEx that might work: _(.*?)_ )
+/// TODO: Move a chunk of code into seperate file
+
 import React, { Component } from 'react';
 import Cards from '../assets/cards.json';
 import Libs from '../assets/libs.json';

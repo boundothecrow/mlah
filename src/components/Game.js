@@ -57,6 +57,10 @@ class Game extends Component {
         return this.state.libs[Math.floor(Math.random() * len)];
     }
 
+    /**
+     * Place the card on the "board," then replace the placed card
+     * in hand with new one
+     */
     placeCard(id) {
         let deckIndex = this.state.deckIndex;
         let currDeck = this.state.deck;

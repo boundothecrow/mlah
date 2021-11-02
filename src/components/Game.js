@@ -11,8 +11,8 @@ class Game extends Component {
             currentLib: '',
             deck: [],
             hand: [],
-            deckIndex: 14,
             placedCards: [],
+            deckIndex: 14,
         }
     }
 

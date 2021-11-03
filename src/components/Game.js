@@ -11,11 +11,13 @@ class Game extends Component {
         this.state = {
             cards: Cards,
             libs: Libs,
-            currentLib: '',
             deck: [],
             hand: [],
             placedCards: [],
             deckIndex: 14,
+            currentLib: [],
+            wordTypes: [],
+            wordCount: 0,
         }
     }
 
@@ -27,7 +29,8 @@ class Game extends Component {
         let shuffled = this.state.cards.sort(() => Math.random() - 0.5);
         let newDeck = this.state.deck;
         for (let i = 0; i < 50; i++) {
-            newDeck.push(shuffled[i]);
+            let pickedCard = shuffled[i];
+            newDeck.push(pickedCard.replace(/\./g, '')); // Remove the periods
         }
         this.setState({
             deck: newDeck.slice()
@@ -79,10 +82,24 @@ class Game extends Component {
 
     }
 
+    /**
+     * Extract the blanks, count the number of blanks, then define
+     * each blank (ex: noun, verb, etc)
+     */
+    lib() {
+        let len = this.state.libs.length;
+        let lib = this.state.libs[Math.floor(Math.random() * len)];
+        let exp = /_(.*?)_/g; // Capture everything in between underscores (ex: _noun_)
+        let wordTypes = lib.match(exp);
+        console.log(wordTypes);
+
+    }
+
     // Once the component mounts, automatically shuffle the cards
     componentDidMount() {
         this.shuffle();
         this.newHand();
+        this.lib();
     }
 
 

@@ -62,13 +62,14 @@ class Game extends Component {
         let currDeck = this.state.deck;
         let currCard = this.state.hand[id];
         let plCNum = this.state.placedCards.length;
-        let max = this.state.currentLib.length;
+        let max = this.state.currentLib.length - 1;
 
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
             this.setState({
                 deckIndex: deckIndex + 1,
-                placedCards: this.state.placedCards.concat(currCard)
+                placedCards: this.state.placedCards.concat(currCard),
+                blankCount: this.state.blankCount - 1
             });
         } else {
             console.log("Limit reached");

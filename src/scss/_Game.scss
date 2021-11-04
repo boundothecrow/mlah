@@ -1,7 +1,11 @@
 .Game {
     height: 100%;
-    h1 {
+    h3 {
         text-align: center;
+    }
+    .word-type {
+        text-align: center;
+        text-transform: uppercase;
     }
     .card-board {
 

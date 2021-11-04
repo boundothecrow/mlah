@@ -51,14 +51,6 @@ class Game extends Component {
         })
     }
 
-    /**
-     * Picks a random lib
-     * @returns String
-     */
-    pickLib() {
-        let len = this.state.libs.length;
-        return this.state.libs[Math.floor(Math.random() * len)];
-    }
 
     /**
      * Place the card on the "board," then replace the placed card
@@ -83,6 +75,15 @@ class Game extends Component {
     }
 
     /**
+     * Picks a random lib
+     * @returns String
+     */
+     pickLib() {
+        let len = this.state.libs.length;
+        return this.state.libs[Math.floor(Math.random() * len)];
+    }
+
+    /**
      * Extract the blanks, count the number of blanks, then define
      * each blank (ex: noun, verb, etc)
      */
@@ -91,7 +92,8 @@ class Game extends Component {
         let lib = this.state.libs[Math.floor(Math.random() * len)];
         let exp = /_(.*?)_/g; // Capture everything in between underscores (ex: _noun_)
         let wordTypes = lib.match(exp);
-        console.log(wordTypes);
+        let arrReplace = lib.replace(exp, '{}');
+        let arrSplit = arrReplace.split(/\{\}/g);
 
     }
 

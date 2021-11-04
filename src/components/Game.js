@@ -75,15 +75,6 @@ class Game extends Component {
     }
 
     /**
-     * Picks a random lib
-     * @returns String
-     */
-     pickLib() {
-        let len = this.state.libs.length;
-        return this.state.libs[Math.floor(Math.random() * len)];
-    }
-
-    /**
      * Extract the blanks, count the number of blanks, then define
      * each blank (ex: noun, verb, etc)
      */
@@ -94,7 +85,10 @@ class Game extends Component {
         let wordTypes = lib.match(exp);
         let arrReplace = lib.replace(exp, '{}');
         let arrSplit = arrReplace.split(/\{\}/g);
-
+        this.setState({
+            currentLib: this.state.currentLib.concat(arrSplit),
+            wordTypes: this.state.wordTypes.concat(wordTypes)
+        });
     }
 
     // Once the component mounts, automatically shuffle the cards

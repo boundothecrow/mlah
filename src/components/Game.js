@@ -92,7 +92,8 @@ class Game extends Component {
         }
         this.setState({
             currentLib: this.state.currentLib.concat(arrSplit),
-            wordTypes: this.state.wordTypes.concat(wordTypes)
+            wordTypes: this.state.wordTypes.concat(wordTypes),
+            blankCount: wordTypes.length
         });
     }
 
@@ -101,7 +102,6 @@ class Game extends Component {
         this.shuffle();
         this.newHand();
         this.lib();
-        console.log(this.state.blankCount);
     }
 
 

@@ -17,7 +17,8 @@ class Game extends Component {
             deckIndex: 14,
             currentLib: [],
             wordTypes: [],
-            wordCount: 0,
+            blankCount: 0,
+            wordIndex: 0
         }
     }
 
@@ -61,8 +62,9 @@ class Game extends Component {
         let currDeck = this.state.deck;
         let currCard = this.state.hand[id];
         let plCNum = this.state.placedCards.length;
+        let max = this.state.currentLib.length;
 
-        if (plCNum < 3) {
+        if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
             this.setState({
                 deckIndex: deckIndex + 1,
@@ -85,6 +87,9 @@ class Game extends Component {
         let wordTypes = lib.match(exp);
         let arrReplace = lib.replace(exp, '{}');
         let arrSplit = arrReplace.split(/\{\}/g);
+        for (let i = 0; i < wordTypes.length; i++) {
+            wordTypes[i] = wordTypes[i].replace(/_/g, '');
+        }
         this.setState({
             currentLib: this.state.currentLib.concat(arrSplit),
             wordTypes: this.state.wordTypes.concat(wordTypes)
@@ -96,15 +101,15 @@ class Game extends Component {
         this.shuffle();
         this.newHand();
         this.lib();
+        console.log(this.state.blankCount);
     }
 
 
     render() {
         return (
             <div className="Game">
-                <div>
-                    <h1>Noun</h1>
-                </div>
+                <h1 className="word-type">{this.state.wordTypes[this.state.wordIndex]}</h1>
+                <h3>{this.state.blankCount} blanks left</h3>
                 <div className="card-board">
                     {this.state.hand.map((e, i) => {
                         return <div className="card" id={i} key={i} onClick={() => this.placeCard(i)}>{e}</div>

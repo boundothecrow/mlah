@@ -68,9 +68,8 @@ class Game extends Component {
                 placedCards: this.state.placedCards.concat(currCard),
                 blankCount: this.state.blankCount - 1
             });
-        } else {
-            console.log("Limit reached");
         }
+        /// TODO: Rewrite so it builds string as it proceeds through
 
     }
 

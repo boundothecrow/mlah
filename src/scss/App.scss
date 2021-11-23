@@ -1,11 +1,9 @@
 @import 'variables';
-@import './fonts/inter.css';
-@import 'Start';
-@import 'Game';
 
 .App {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
 }

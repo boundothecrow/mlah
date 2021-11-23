@@ -15,7 +15,8 @@ class Game extends Component {
             currentLib: [],
             wordTypes: [],
             blankCount: 0,
-            wordIndex: 0
+            wordIndex: 0,
+            output: '',
         }
     }
 
@@ -60,14 +61,18 @@ class Game extends Component {
         let currCard = this.state.hand[id];
         let plCNum = this.state.placedCards.length;
         let max = this.state.currentLib.length - 1;
+        let out = this.state.output;
 
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
             this.setState({
                 deckIndex: deckIndex + 1,
                 placedCards: this.state.placedCards.concat(currCard),
-                blankCount: this.state.blankCount - 1
+                blankCount: this.state.blankCount - 1,
+                output: this.state.output + currCard,
+                
             });
+            console.log(this.state.output);
         }
         /// TODO: Rewrite so it builds string as it proceeds through
 
@@ -94,11 +99,22 @@ class Game extends Component {
         });
     }
 
-    // Once the component mounts, automatically shuffle the cards
-    componentDidMount() {
+    /**
+     * Once started, shuffle the cards, pull out 14 cards, pick a lib,
+     * then begin string building
+     */
+    newGame() {
         this.shuffle();
         this.newHand();
         this.lib();
+        this.setState({
+            output: this.state.currentLib[0]
+        });
+    }
+
+    // Once the component mounts, automatically shuffle the cards
+    componentDidMount() {
+        this.newGame();
     }
 
 

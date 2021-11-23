@@ -16,7 +16,7 @@ class Game extends Component {
             wordTypes: [],
             blankCount: 0,
             wordIndex: 0,
-            output: '',
+            gameOut: '',
         }
     }
 
@@ -61,7 +61,7 @@ class Game extends Component {
         let currCard = this.state.hand[id];
         let plCNum = this.state.placedCards.length;
         let max = this.state.currentLib.length - 1;
-        let out = this.state.output;
+        let out = this.state.gameOut;
 
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
@@ -69,13 +69,10 @@ class Game extends Component {
                 deckIndex: deckIndex + 1,
                 placedCards: this.state.placedCards.concat(currCard),
                 blankCount: this.state.blankCount - 1,
-                output: this.state.output + currCard,
+                gameOut: out + " " + currCard,
                 
             });
-            console.log(this.state.output);
         }
-        /// TODO: Rewrite so it builds string as it proceeds through
-
     }
 
     /**

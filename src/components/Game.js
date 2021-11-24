@@ -66,9 +66,6 @@ class Game extends Component {
         let libInd = this.state.libIndex;
         let currLib = this.state.currentLib[libInd];
 
-        console.log(libInd);
-        console.log(currLib);
-
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
             libInd++;

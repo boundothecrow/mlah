@@ -6,7 +6,6 @@ class Intro extends Component {
     render() {
         return (
             <div className="Start">
-                <h1>Mad Libs Against Humanity</h1>
                 <p>Intro text. Fill it in.</p>
                 <h2>Rules</h2>
                 <p>Rules text. Also fill it in, ya dingus.</p>

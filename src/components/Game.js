@@ -11,11 +11,12 @@ class Game extends Component {
             deck: [],
             hand: [],
             placedCards: [],
-            deckIndex: 14,
             currentLib: [],
             wordTypes: [],
             blankCount: 0,
+            deckIndex: 14,
             wordIndex: 0,
+            libIndex: 0,
             gameOut: '',
         }
     }
@@ -62,16 +63,26 @@ class Game extends Component {
         let plCNum = this.state.placedCards.length;
         let max = this.state.currentLib.length - 1;
         let out = this.state.gameOut;
+        let libInd = this.state.libIndex;
+        let currLib = this.state.currentLib[libInd];
+
+        console.log(libInd);
+        console.log(currLib);
 
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
+            libInd++;
             this.setState({
                 deckIndex: deckIndex + 1,
                 placedCards: this.state.placedCards.concat(currCard),
                 blankCount: this.state.blankCount - 1,
-                gameOut: out + " " + currCard,
-                
+                libIndex: libInd,
             });
+            if (out === '') 
+                this.setState({ gameOut: currLib + currCard });
+            else
+                this.setState({ gameOut: out + " " + currLib + currCard });
+            
         }
     }
 

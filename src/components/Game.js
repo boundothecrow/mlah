@@ -18,6 +18,7 @@ class Game extends Component {
             wordIndex: 0,
             libIndex: 0,
             gameOut: '',
+            gameOver: false
         }
     }
 
@@ -54,7 +55,7 @@ class Game extends Component {
 
     /**
      * Place the card on the "board," then replace the placed card
-     * in hand with new one
+     * in hand with new one, as well as build the output string
      */
     placeCard(id) {
         let deckIndex = this.state.deckIndex;
@@ -66,6 +67,8 @@ class Game extends Component {
         let libInd = this.state.libIndex;
         let currLib = this.state.currentLib[libInd];
 
+        // As long as the number of placed cards does not exceed the number of blanks,
+        // proceed on. Inside of the logic, also automatically proceed on to the results
         if (plCNum < max) {
             this.state.hand.splice(id, 1, currDeck[deckIndex]);
             libInd++;
@@ -79,7 +82,11 @@ class Game extends Component {
                 this.setState({ gameOut: currLib + currCard });
             else
                 this.setState({ gameOut: out + " " + currLib + currCard });
+
             
+            if (plCNum === (max - 1)) {
+                // What to do after the last blank is filled
+            }
         }
     }
 
@@ -122,16 +129,23 @@ class Game extends Component {
         this.newGame();
     }
 
-
     render() {
+        let gameOn = { opacity: 1 }
+        let gameOff = { opacity: 0 }
+
         return (
             <div className="Game">
-                <h1 className="word-type">{this.state.wordTypes[this.state.wordIndex]}</h1>
-                <h3>{this.state.blankCount} blanks left</h3>
-                <div className="card-board">
-                    {this.state.hand.map((e, i) => {
-                        return <div className="card" id={i} key={i} onClick={() => this.placeCard(i)}>{e}</div>
-                    })}
+                <div>
+                    <h1 className="word-type">{this.state.wordTypes[this.state.wordIndex]}</h1>
+                    <h3>{this.state.blankCount} blanks left</h3>
+                    <div className="card-board">
+                        {this.state.hand.map((e, i) => {
+                            return <div className="card" id={i} key={i} onClick={() => this.placeCard(i)}>{e}</div>
+                        })}
+                    </div>
+                </div>
+                <div>
+                    
                 </div>
             </div>
         );
